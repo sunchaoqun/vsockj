@@ -27,3 +27,15 @@ Server:
 ```shell script
 mvn -f vsockj-example/pom.xml clean compile exec:exec -DclassName=ServerDemo
 ```
+
+## AWS EC2 Graviton
+
+So far the plugin we use nar-maven-plugin is out of date(the newest version is 3.10.1), which is not support aarch64-Linux-gpp, so you should download the master branch, to compile the latest version and change it to 3.10.2-SNAPSHOT, then build the related jar file to run in enclave environment.
+
+https://github.com/maven-nar/nar-maven-plugin
+
+
+
+
+
+
