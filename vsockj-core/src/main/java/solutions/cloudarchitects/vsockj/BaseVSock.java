@@ -21,16 +21,22 @@ abstract class BaseVSock implements Closeable {
     }
 
     protected VSockImpl getImplementation() throws SocketException {
-        if (!created)
-            createImplementation();
-        return implementation;
+        synchronized(closeLock) {
+            if (!created) {
+                createImplementation();
+            }
+            return implementation;
+        }
     }
 
     protected VSockImpl setImplementation() throws SocketException {
-        if(implementation == null) {
-            implementation = new VSockImpl();
+        synchronized(closeLock) {
+            if(implementation == null) {
+                implementation = new VSockImpl();
+                created = true;
+            }
+            return implementation;
         }
-        return implementation;
     }
 
     public void bind(VSockAddress address) throws IOException {
